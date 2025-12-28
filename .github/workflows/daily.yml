@@ -29,8 +29,8 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git config --global user.name "Tanvir-Hossain847"
-          git config --global user.email "tanvirhossaintufa@gmail.com"
+          git config --global user.name "Roksana Dilshad"
+          git config --global user.email "roksanadilshad@gmail.com"
           git add .
           git commit -m "Daily AI file update" || echo "No changes to commit"
           git push
