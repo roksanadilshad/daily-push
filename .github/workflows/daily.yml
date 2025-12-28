@@ -1,0 +1,35 @@
+name: Daily AI Commit
+on:
+  schedule:
+    - cron: "0 9 * * *"  # runs every day at 9 AM UTC
+  workflow_dispatch:    # allows manual runs
+
+permissions:
+  contents: write      # <-- This is crucial for push access
+
+jobs:
+  run-ai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install OpenAI
+        run: pip install --upgrade openai
+
+      - name: Run AI Script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python daily_ai.py
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "Tanvir-Hossain847"
+          git config --global user.email "tanvirhossaintufa@gmail.com"
+          git add .
+          git commit -m "Daily file update"
+          git push
