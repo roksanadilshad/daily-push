@@ -1,11 +1,17 @@
-import openai 
+import google.generativeai as genai
 import os
 import random
 from datetime import datetime
 import json
+import sys
 
-# Load your API key from GitHub Secrets (env var)
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Load Gemini API key from environment
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    print("GEMINI_API_KEY missing, skipping")
+    sys.exit(0)
+
+genai.configure(api_key=api_key)
 
 # File types and extensions
 file_types = {
@@ -50,7 +56,6 @@ def save_used_prompts():
 def get_unused_prompt(ftype):
     available = [p for p in prompts[ftype] if p not in used_prompts.get(ftype, [])]
     if not available:
-        # Reset if all used
         used_prompts[ftype] = []
         available = prompts[ftype]
     choice = random.choice(available)
@@ -65,13 +70,15 @@ extension = file_types[chosen_type]
 # Pick a prompt that hasn’t been used recently
 prompt = get_unused_prompt(chosen_type)
 
-# Generate AI code
-response = openai.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": prompt}]
-)
+# Generate AI code using Gemini
+model = genai.GenerativeModel("gemini-1.5-flash")
 
-code = response.choices[0].message.content
+try:
+    response = model.generate_content(prompt)
+    code = response.text.strip()
+except Exception as e:
+    print("Gemini error:", e)
+    sys.exit(0)
 
 # Filename with date and type
 file_name = f"{chosen_type}_file_{datetime.now().strftime('%Y_%m_%d')}{extension}"
@@ -86,7 +93,6 @@ print(f" Generated {file_name} with prompt: {prompt}")
 readme_file = "README.md"
 log_entry = f"- {datetime.now().strftime('%Y-%m-%d')}: Generated `{file_name}` — prompt: *{prompt}*\n"
 
-# Append to README or create if missing
 if os.path.exists(readme_file):
     with open(readme_file, "a", encoding="utf-8") as f:
         f.write(log_entry)
