@@ -3,7 +3,8 @@
     "Write HTML code for a personal portfolio landing page."
   ],
   "css": [
-    "Write CSS styles for a modern card layout."
+    "Write CSS styles for a modern card layout.",
+    "Write CSS code for a neon glowing button."
   ],
   "javascript": [
     "Make a JavaScript countdown timer that starts from 10, and when it ends make the background change color."
