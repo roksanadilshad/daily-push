@@ -8,6 +8,7 @@
     "Write CSS code for a neon glowing button."
   ],
   "javascript": [
-    "Write JavaScript code that displays a random fun fact in the console."
+    "Write JavaScript code that displays a random fun fact in the console.",
+    "Create a JavaScript function that changes background color every 5 second."
   ]
 }
