@@ -8,8 +8,6 @@
     "Write CSS styles for a modern card layout."
   ],
   "javascript": [
-    "Create a JavaScript function that changes background color every 5 second.",
-    "Make a JavaScript countdown timer that starts from 10, and when it ends make the background change color.",
     "Write JavaScript code that displays a random fun fact in the console."
   ]
 }
