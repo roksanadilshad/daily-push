@@ -4,7 +4,8 @@
     "Make a simple HTML table of your top 5 favorite foods."
   ],
   "css": [
-    "Write CSS styles for a modern card layout."
+    "Write CSS styles for a modern card layout.",
+    "Write CSS code for a neon glowing button."
   ],
   "javascript": [
     "Create a JavaScript function that changes background color every 5 second."
